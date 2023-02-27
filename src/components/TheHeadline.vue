@@ -20,10 +20,7 @@ export default {
   computed: {
     actionClass() {
       return {
-        build: this.action === "Build",
-        create: this.action === "Create",
-        design: this.action === "Design",
-        code: this.action === "Code",
+        [this.action.toLowerCase()]: true,
       };
     },
   },
