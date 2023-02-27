@@ -36,7 +36,7 @@ export default {
     changeTitle() {
       const actions = ["Build", "Create", "Design", "Code"];
       this.interval = setInterval(() => {
-        nextElementInList(actions, this.action);
+        this.action = nextElementInList(actions, this.action);
       }, 3000);
     },
   },
