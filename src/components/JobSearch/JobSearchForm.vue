@@ -10,6 +10,7 @@
       <div class="relative flex h-full flex-1 items-center pr-3">
         <label class="absolute left-0 -top-10">Role</label>
         <text-input
+          :value="role"
           placeholder="Software engineer"
           @handle-input="role = $event"
         ></text-input>
@@ -21,8 +22,9 @@
       <div class="relative flex h-full flex-1 items-center pl-3">
         <label class="absolute left-0 -top-10">Where?</label>
         <text-input
+          :value="location"
           placeholder="Los Angeles"
-          @handle-input="updateLocation"
+          @handle-input="location = $event"
         ></text-input>
       </div>
     </div>
@@ -47,11 +49,7 @@ export default {
       location: "",
     };
   },
-  methods: {
-    updateLocation(payload) {
-      this.location = payload;
-    },
-  },
+  methods: {},
 };
 </script>
 
