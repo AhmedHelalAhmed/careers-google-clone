@@ -28,3 +28,18 @@ describe("actions", () => {
     });
   });
 });
+
+describe("getters", () => {
+  describe("UNIQUE_ORGANIZATIONS", () => {
+    it("finds unique organization from list of jobs", async () => {
+      const store = useJobsStore();
+      store.jobs = [
+        { organization: "Google" },
+        { organization: "Amazon" },
+        { organization: "Google" },
+      ];
+      const result = store.UNIQUE_ORGANIZATIONS;
+      expect(result).toEqual(new Set(["Google", "Amazon"]));
+    });
+  });
+});
