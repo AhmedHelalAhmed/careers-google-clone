@@ -99,7 +99,7 @@ describe("JobListings", () => {
       });
       renderJobListings($route);
       await screen.findAllByRole("listitem");
-      // a tag without href will not consider a link se we need to add role=link on the element
+      // a tag without href will not consider a link so we need to add role=link on the element
       const nextLink = screen.queryByRole("link", {
         name: /next/i,
       });
