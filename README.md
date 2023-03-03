@@ -4,7 +4,9 @@ This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and
+disable
+Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
 ## Customize configuration
 
@@ -20,6 +22,12 @@ npm install
 
 ```sh
 npm run dev
+```
+
+### Run Backend server
+
+```sh
+npm run backend
 ```
 
 ### Compile and Minify for Production
@@ -38,4 +46,20 @@ npm run test:unit
 
 ```sh
 npm run lint
+```
+
+### Run tests
+
+```sh
+npm run test:unit
+```
+
+### Prepare environment variables
+
+```sh
+cp .env.example .env.development.local
+cp .env.example .env.test.local
+cp .env.example .env.production.local
+# change the value to be like that
+VITE_APP_API_URL = http://127.0.0.1:3000
 ```
