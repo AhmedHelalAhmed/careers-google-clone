@@ -35,7 +35,7 @@ describe("JobListings", () => {
     });
     renderJobListings($route);
 
-    expect(axios.get).toHaveBeenCalledWith("http://127.0.0.1:3000/jobs");
+    expect(axios.get).toHaveBeenCalledWith("http://myfakeapi.com/jobs");
   });
 
   it("displays maximum of 10 jobs", async () => {
