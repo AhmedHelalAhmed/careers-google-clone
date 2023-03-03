@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/vue";
 import JobListings from "@/components/JobResults/JobListings.vue";
-import axios from "axios";
 import { RouterLinkStub } from "@vue/test-utils";
+import { createTestingPinia } from "@pinia/testing";
+import { useJobsStore } from "@/stores/jobs";
 
-vi.mock("axios");
 describe("JobListings", () => {
   const createRoute = (queryParams = {}) => {
     return {
@@ -14,8 +14,10 @@ describe("JobListings", () => {
   };
 
   const renderJobListings = ($route) => {
+    const pinia = createTestingPinia();
     render(JobListings, {
       global: {
+        plugins: [pinia],
         mocks: {
           $route,
         },
@@ -27,32 +29,25 @@ describe("JobListings", () => {
   };
 
   it("fetches jobs", () => {
-    axios.get.mockResolvedValue({
-      data: [],
-    });
     const $route = createRoute({
       page: "5",
     });
     renderJobListings($route);
-
-    expect(axios.get).toHaveBeenCalledWith("http://myfakeapi.com/jobs");
+    const jobStore = useJobsStore();
+    expect(jobStore.FETCH_JOBS).toHaveBeenCalled();
   });
 
   it("displays maximum of 10 jobs", async () => {
-    axios.get.mockResolvedValue({
-      data: Array(15).fill({}),
-    });
     const $route = createRoute();
     renderJobListings($route);
+    const jobStore = useJobsStore();
+    jobStore.jobs = Array(15).fill({});
     const jobListings = await screen.findAllByRole("listitem");
     expect(jobListings).toHaveLength(10);
   });
 
   describe("when params exclude page number", () => {
     it("displays page number 1", () => {
-      axios.get.mockResolvedValue({
-        data: Array(15).fill({}),
-      });
       const $route = createRoute({
         page: undefined,
       });
@@ -63,9 +58,6 @@ describe("JobListings", () => {
 
   describe("when params include page number", () => {
     it("displays page number", () => {
-      axios.get.mockResolvedValue({
-        data: Array(15).fill({}),
-      });
       const $route = createRoute({
         page: "3",
       });
@@ -75,14 +67,12 @@ describe("JobListings", () => {
   });
   describe("when user is on first page", () => {
     it("does not show link to previous page", async () => {
-      axios.get.mockResolvedValue({
-        data: Array(15).fill({}),
-      });
       const $route = createRoute({
         page: "1",
       });
       renderJobListings($route);
-
+      const jobStore = useJobsStore();
+      jobStore.jobs = Array(15).fill({});
       await screen.findAllByRole("listitem");
       const previousLink = screen.queryByRole("link", {
         name: /previous/i,
@@ -91,13 +81,12 @@ describe("JobListings", () => {
     });
 
     it("show link to next page", async () => {
-      axios.get.mockResolvedValue({
-        data: Array(15).fill({}),
-      });
       const $route = createRoute({
         page: "1",
       });
       renderJobListings($route);
+      const jobStore = useJobsStore();
+      jobStore.jobs = Array(15).fill({});
       await screen.findAllByRole("listitem");
       // a tag without href will not consider a link so we need to add role=link on the element
       const nextLink = screen.queryByRole("link", {
@@ -109,13 +98,13 @@ describe("JobListings", () => {
 
   describe("when user is on last page", () => {
     it("does not show link to next page", async () => {
-      axios.get.mockResolvedValue({
-        data: Array(15).fill({}),
-      });
       const $route = createRoute({
         page: "2",
       });
       renderJobListings($route);
+      const jobStore = useJobsStore();
+      jobStore.jobs = Array(15).fill({});
+
       await screen.findAllByRole("listitem");
       // a tag without href will not consider a link se we need to add role=link on the element
       const nextLink = screen.queryByRole("link", {
@@ -124,13 +113,12 @@ describe("JobListings", () => {
       expect(nextLink).not.toBeInTheDocument();
     });
     it("show link to previous page", async () => {
-      axios.get.mockResolvedValue({
-        data: Array(15).fill({}),
-      });
       const $route = createRoute({
         page: "2",
       });
       renderJobListings($route);
+      const jobStore = useJobsStore();
+      jobStore.jobs = Array(15).fill({});
       await screen.findAllByRole("listitem");
       const previousLink = screen.queryByRole("link", {
         name: /previous/i,
