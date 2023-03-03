@@ -13,29 +13,23 @@
       <collapsible-accordion header="Job types">
         <p>placeholder</p>
       </collapsible-accordion>
-      <collapsible-accordion header="Organizations">
-        <div class="mt-5">
-          <fieldset>
-            <ul class="flex flex-row flex-wrap">
-              <li class="h-8 w-1/2">
-                <input id="VueTube" type="checkbox" class="mr-3" />
-                <label for="VueTube">VueTube</label>
-              </li>
-            </ul>
-          </fieldset>
-        </div>
-      </collapsible-accordion>
+      <job-filters-sidebar-organizations></job-filters-sidebar-organizations>
     </section>
   </div>
 </template>
 
 <script>
 import ActionButton from "@/components/Shared/ActionButton.vue";
+import JobFiltersSidebarOrganizations from "@/components/JobResults/JobFiltersSidebar/JobFiltersSidebarOrganizations.vue";
 import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue";
 
 export default {
   name: "JobFiltersSidebar",
-  components: { CollapsibleAccordion, ActionButton },
+  components: {
+    CollapsibleAccordion,
+    JobFiltersSidebarOrganizations,
+    ActionButton,
+  },
 };
 </script>
 
