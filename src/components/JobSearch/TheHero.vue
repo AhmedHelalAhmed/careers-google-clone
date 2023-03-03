@@ -19,6 +19,27 @@
     </section>
     <spot-light class="flex flex-row justify-center pb-16">
       <template #default="slotProps">
+        <!-- another design ...
+        <router-link
+          to="/jobs/results"
+          class="mx-5 flex h-[268px] w-[530px] flex-col rounded-lg border bg-brand-gray-2"
+        >
+          <div
+            :style="{ backgroundImage: 'url(' + slotProps.spotlight.img + ')' }"
+            class="flex h-full flex-col justify-end bg-cover"
+          >
+            <div class="text-white">
+              <div class="px-6 py-4">
+                <h3 class="text-xl">{{ slotProps.spotlight.title }}</h3>
+                <p class="pt-4">{{ slotProps.spotlight.description }}</p>
+              </div>
+            </div>
+            <router-link to="/jobs/results" class="px-6 pb-4 text-sm text-white"
+              >See jobs
+            </router-link>
+          </div>
+        </router-link>
+         -->
         <router-link
           to="/jobs/results"
           class="mx-5 flex h-96 w-72 flex-col rounded-lg border bg-brand-gray-2"
