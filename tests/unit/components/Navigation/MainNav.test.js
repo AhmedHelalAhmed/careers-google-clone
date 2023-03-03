@@ -3,12 +3,11 @@ import MainNav from "@/components/Navigation/MainNav.vue";
 import userEvent from "@testing-library/user-event";
 import { RouterLinkStub } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
+import { useUserStore } from "@/stores/user";
 
 describe("MainNav", () => {
   const renderMainNav = () => {
-    const pinia = createTestingPinia({
-      stubActions: false, // This will use real implementation
-    });
+    const pinia = createTestingPinia();
     const $route = {
       name: "home",
     };
@@ -47,6 +46,7 @@ describe("MainNav", () => {
   describe("When the user logs in", () => {
     it("displays user profile picture", async () => {
       renderMainNav();
+      const userStore = useUserStore();
 
       let profileImage = screen.queryByRole("img", {
         name: /User profile image/i,
@@ -56,6 +56,7 @@ describe("MainNav", () => {
       const signInButton = screen.getByRole("button", {
         name: /sign in/i,
       });
+      userStore.isLoggedIn = true; // simulate the user is logged in
       expect(signInButton.textContent.trim().toLowerCase()).toBe("sign in");
 
       await userEvent.click(signInButton);
