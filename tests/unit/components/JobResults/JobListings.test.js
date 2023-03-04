@@ -3,24 +3,15 @@ import JobListings from "@/components/JobResults/JobListings.vue";
 import { RouterLinkStub } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
 import { useJobsStore } from "@/stores/jobs";
+import { useRoute } from "vue-router";
 
+vi.mock("vue-router");
 describe("JobListings", () => {
-  const createRoute = (queryParams = {}) => {
-    return {
-      query: {
-        ...queryParams,
-      },
-    };
-  };
-
-  const renderJobListings = ($route) => {
+  const renderJobListings = () => {
     const pinia = createTestingPinia();
     render(JobListings, {
       global: {
         plugins: [pinia],
-        mocks: {
-          $route,
-        },
         stubs: {
           RouterLink: RouterLinkStub,
         },
@@ -29,17 +20,20 @@ describe("JobListings", () => {
   };
 
   it("fetches jobs", () => {
-    const $route = createRoute({
-      page: "5",
+    useRoute.mockReturnValue({
+      query: {},
     });
-    renderJobListings($route);
+
+    renderJobListings();
     const jobStore = useJobsStore();
     expect(jobStore.FETCH_JOBS).toHaveBeenCalled();
   });
 
   it("displays maximum of 10 jobs", async () => {
-    const $route = createRoute();
-    renderJobListings($route);
+    useRoute.mockReturnValue({
+      query: { page: "1" },
+    });
+    renderJobListings();
     const jobStore = useJobsStore();
     jobStore.jobs = Array(15).fill({});
     const jobListings = await screen.findAllByRole("listitem");
@@ -48,29 +42,29 @@ describe("JobListings", () => {
 
   describe("when params exclude page number", () => {
     it("displays page number 1", () => {
-      const $route = createRoute({
-        page: undefined,
+      useRoute.mockReturnValue({
+        query: { page: undefined },
       });
-      renderJobListings($route);
+      renderJobListings();
       expect(screen.getByText("Page 1")).toBeInTheDocument();
     });
   });
 
   describe("when params include page number", () => {
     it("displays page number", () => {
-      const $route = createRoute({
-        page: "3",
+      useRoute.mockReturnValue({
+        query: { page: "3" },
       });
-      renderJobListings($route);
+      renderJobListings();
       expect(screen.getByText("Page 3")).toBeInTheDocument();
     });
   });
   describe("when user is on first page", () => {
     it("does not show link to previous page", async () => {
-      const $route = createRoute({
-        page: "1",
+      useRoute.mockReturnValue({
+        query: { page: "1" },
       });
-      renderJobListings($route);
+      renderJobListings();
       const jobStore = useJobsStore();
       jobStore.jobs = Array(15).fill({});
       await screen.findAllByRole("listitem");
@@ -81,10 +75,10 @@ describe("JobListings", () => {
     });
 
     it("show link to next page", async () => {
-      const $route = createRoute({
-        page: "1",
+      useRoute.mockReturnValue({
+        query: { page: "1" },
       });
-      renderJobListings($route);
+      renderJobListings();
       const jobStore = useJobsStore();
       jobStore.jobs = Array(15).fill({});
       await screen.findAllByRole("listitem");
@@ -98,10 +92,11 @@ describe("JobListings", () => {
 
   describe("when user is on last page", () => {
     it("does not show link to next page", async () => {
-      const $route = createRoute({
-        page: "2",
+      useRoute.mockReturnValue({
+        query: { page: "2" },
       });
-      renderJobListings($route);
+
+      renderJobListings();
       const jobStore = useJobsStore();
       jobStore.jobs = Array(15).fill({});
 
@@ -113,10 +108,10 @@ describe("JobListings", () => {
       expect(nextLink).not.toBeInTheDocument();
     });
     it("show link to previous page", async () => {
-      const $route = createRoute({
-        page: "2",
+      useRoute.mockReturnValue({
+        query: { page: "2" },
       });
-      renderJobListings($route);
+      renderJobListings();
       const jobStore = useJobsStore();
       jobStore.jobs = Array(15).fill({});
       await screen.findAllByRole("listitem");
