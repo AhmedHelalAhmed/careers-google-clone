@@ -9,6 +9,8 @@ vi.mock("vue-router");
 describe("JobListings", () => {
   const renderJobListings = () => {
     const pinia = createTestingPinia();
+    const jobsStore = useJobsStore();
+    jobsStore.FILTERED_JOBS = Array(15).fill({});
     render(JobListings, {
       global: {
         plugins: [pinia],
@@ -17,6 +19,7 @@ describe("JobListings", () => {
         },
       },
     });
+    return { jobsStore };
   };
 
   it("fetches jobs", () => {
@@ -24,18 +27,16 @@ describe("JobListings", () => {
       query: {},
     });
 
-    renderJobListings();
-    const jobStore = useJobsStore();
-    expect(jobStore.FETCH_JOBS).toHaveBeenCalled();
+    const { jobsStore } = renderJobListings();
+    expect(jobsStore.FETCH_JOBS).toHaveBeenCalled();
   });
 
   it("displays maximum of 10 jobs", async () => {
     useRoute.mockReturnValue({
       query: { page: "1" },
     });
-    renderJobListings();
-    const jobStore = useJobsStore();
-    jobStore.jobs = Array(15).fill({});
+    const { jobsStore } = renderJobListings();
+    jobsStore.FILTERED_JOBS = Array(15).fill({});
     const jobListings = await screen.findAllByRole("listitem");
     expect(jobListings).toHaveLength(10);
   });
@@ -64,9 +65,8 @@ describe("JobListings", () => {
       useRoute.mockReturnValue({
         query: { page: "1" },
       });
-      renderJobListings();
-      const jobStore = useJobsStore();
-      jobStore.jobs = Array(15).fill({});
+      const { jobsStore } = renderJobListings();
+      jobsStore.FILTERED_JOBS = Array(15).fill({});
       await screen.findAllByRole("listitem");
       const previousLink = screen.queryByRole("link", {
         name: /previous/i,
@@ -78,9 +78,9 @@ describe("JobListings", () => {
       useRoute.mockReturnValue({
         query: { page: "1" },
       });
-      renderJobListings();
-      const jobStore = useJobsStore();
-      jobStore.jobs = Array(15).fill({});
+
+      const { jobsStore } = renderJobListings();
+      jobsStore.FILTERED_JOBS = Array(15).fill({});
       await screen.findAllByRole("listitem");
       // a tag without href will not consider a link so we need to add role=link on the element
       const nextLink = screen.queryByRole("link", {
@@ -96,9 +96,8 @@ describe("JobListings", () => {
         query: { page: "2" },
       });
 
-      renderJobListings();
-      const jobStore = useJobsStore();
-      jobStore.jobs = Array(15).fill({});
+      const { jobsStore } = renderJobListings();
+      jobsStore.FILTERED_JOBS = Array(15).fill({});
 
       await screen.findAllByRole("listitem");
       // a tag without href will not consider a link se we need to add role=link on the element
@@ -111,9 +110,8 @@ describe("JobListings", () => {
       useRoute.mockReturnValue({
         query: { page: "2" },
       });
-      renderJobListings();
-      const jobStore = useJobsStore();
-      jobStore.jobs = Array(15).fill({});
+      const { jobsStore } = renderJobListings();
+      jobsStore.FILTERED_JOBS = Array(15).fill({});
       await screen.findAllByRole("listitem");
       const previousLink = screen.queryByRole("link", {
         name: /previous/i,
