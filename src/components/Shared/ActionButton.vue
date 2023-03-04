@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { computed } from "vue";
+
 export default {
   name: "ActionButton",
   props: {
@@ -21,12 +23,11 @@ export default {
       },
     },
   },
-  computed: {
-    buttonClass() {
-      return {
-        [this.type]: true,
-      };
-    },
+  setup(props) {
+    const buttonClass = computed(() => ({
+      [props.type]: true,
+    }));
+    return { buttonClass };
   },
 };
 </script>
