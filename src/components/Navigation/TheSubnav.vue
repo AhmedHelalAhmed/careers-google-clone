@@ -6,8 +6,8 @@
         <span
           ><span class="text-brand-green-1">{{
             FILTERED_JOBS_BY_ORGANIZATIONS.length
-          }}</span
-          >jobs matched</span
+          }}</span>
+          jobs matched</span
         >
       </div>
     </div>
