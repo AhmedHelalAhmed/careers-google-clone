@@ -10,6 +10,7 @@ describe("TheSubnav", () => {
 
     render(TheSubnav, {
       global: {
+        plugins: [pinia],
         mocks: {
           $route: {
             name: routeName,
