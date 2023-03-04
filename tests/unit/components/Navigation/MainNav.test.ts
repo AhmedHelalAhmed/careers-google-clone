@@ -5,11 +5,13 @@ import { RouterLinkStub } from "@vue/test-utils";
 import { createTestingPinia } from "@pinia/testing";
 import { useUserStore } from "@/stores/user";
 import { useRoute } from "vue-router";
+import type { Mock } from "vitest";
 
 vi.mock("vue-router");
+const useRouteMock = useRoute as Mock;
 describe("MainNav", () => {
   const renderMainNav = () => {
-    useRoute.mockReturnValue({ name: "home" });
+    useRouteMock.mockReturnValue({ name: "home" });
     const pinia = createTestingPinia();
     render(MainNav, {
       global: {
@@ -56,7 +58,7 @@ describe("MainNav", () => {
         name: /sign in/i,
       });
       userStore.isLoggedIn = true; // simulate the user is logged in
-      expect(signInButton.textContent.trim().toLowerCase()).toBe("sign in");
+      expect(signInButton.textContent?.trim().toLowerCase()).toBe("sign in");
 
       await userEvent.click(signInButton);
       profileImage = screen.getByRole("img", {
