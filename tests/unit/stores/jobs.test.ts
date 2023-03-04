@@ -33,14 +33,27 @@ describe("actions", () => {
 });
 
 describe("getters", () => {
+  const createJob = (job: Partial<Job> = {}): Job => ({
+    id: 1,
+    title: "Go Supervisor",
+    organization: "Vue and a Half Men",
+    degree: "Bachelor's",
+    jobType: "Intern",
+    locations: ["Barcelona"],
+    minimumQualifications: ["E-enable best-of-breed solutions"],
+    preferredQualifications: ["Cultivate open-source networks"],
+    description: ["Responsibility item senior later attorney."],
+    dateAdded: "2021-02-01",
+    ...job,
+  });
   describe("UNIQUE_ORGANIZATIONS", () => {
     it("finds unique organization from list of jobs", async () => {
       const store = useJobsStore();
       store.jobs = [
-        { organization: "Google" },
-        { organization: "Amazon" },
-        { organization: "Google" },
-      ] as Job[];
+        createJob({ organization: "Google" }),
+        createJob({ organization: "Amazon" }),
+        createJob({ organization: "Google" }),
+      ];
       const result = store.UNIQUE_ORGANIZATIONS;
       expect(result).toEqual(new Set(["Google", "Amazon"]));
     });
@@ -49,13 +62,13 @@ describe("getters", () => {
     it("finds unique job types from list of jobs", async () => {
       const store = useJobsStore();
       store.jobs = [
-        { jobType: "Full-time" },
-        { jobType: "Part-time" },
-        { jobType: "Temporary" },
-        { jobType: "Part-time" },
-        { jobType: "Part-time" },
-        { jobType: "Full-time" },
-      ] as Job[];
+        createJob({ jobType: "Full-time" }),
+        createJob({ jobType: "Part-time" }),
+        createJob({ jobType: "Temporary" }),
+        createJob({ jobType: "Part-time" }),
+        createJob({ jobType: "Part-time" }),
+        createJob({ jobType: "Full-time" }),
+      ];
       const result = store.UNIQUE_JOB_TYPES;
       expect(result).toEqual(new Set(["Full-time", "Part-time", "Temporary"]));
     });
@@ -67,8 +80,8 @@ describe("getters", () => {
         const userStore = useUserStore();
         userStore.selectedOrganizations = [];
         const store = useJobsStore();
-        const job = { organization: "Google" };
-        const result = store.INCLUDE_JOB_BY_ORGANIZATION(job as Job);
+        const job = createJob({ organization: "Google" });
+        const result = store.INCLUDE_JOB_BY_ORGANIZATION(job);
         expect(result).toBe(true);
       });
     });
@@ -76,8 +89,8 @@ describe("getters", () => {
       const userStore = useUserStore();
       userStore.selectedOrganizations = ["Google", "Amazon"];
       const store = useJobsStore();
-      const job = { organization: "Google" };
-      const result = store.INCLUDE_JOB_BY_ORGANIZATION(job as Job);
+      const job = createJob({ organization: "Google" });
+      const result = store.INCLUDE_JOB_BY_ORGANIZATION(job);
       expect(result).toBe(true);
     });
   });
@@ -88,8 +101,8 @@ describe("getters", () => {
         const userStore = useUserStore();
         userStore.selectedJobTypes = [];
         const store = useJobsStore();
-        const job = { jobType: "Full-time" };
-        const result = store.INCLUDE_JOB_BY_JOB_TYPE(job as Job);
+        const job = createJob({ jobType: "Full-time" });
+        const result = store.INCLUDE_JOB_BY_JOB_TYPE(job);
         expect(result).toBe(true);
       });
     });
@@ -97,8 +110,8 @@ describe("getters", () => {
       const userStore = useUserStore();
       userStore.selectedJobTypes = ["Full-time", "Part-time"];
       const store = useJobsStore();
-      const job = { jobType: "Full-time" };
-      const result = store.INCLUDE_JOB_BY_JOB_TYPE(job as Job);
+      const job = createJob({ jobType: "Full-time" });
+      const result = store.INCLUDE_JOB_BY_JOB_TYPE(job);
       expect(result).toBe(true);
     });
   });
