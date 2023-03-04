@@ -16,28 +16,23 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed, ref } from "vue";
 
-export default {
-  name: "CollapsibleAccordion",
-  props: {
-    header: {
-      type: String,
-      required: true,
-    },
+defineProps({
+  header: {
+    type: String,
+    required: true,
   },
-  setup() {
-    const isOpen = ref(false);
-    const toggle = () => {
-      isOpen.value = !isOpen.value;
-    };
-    const caretIcon = computed(() =>
-      isOpen.value ? ["fas", "angle-up"] : ["fas", "angle-down"]
-    );
-    return { toggle, caretIcon, isOpen };
-  },
+});
+
+const isOpen = ref(false);
+const toggle = () => {
+  isOpen.value = !isOpen.value;
 };
+const caretIcon = computed(() =>
+  isOpen.value ? ["fas", "angle-up"] : ["fas", "angle-down"]
+);
 </script>
 
 <style scoped></style>
