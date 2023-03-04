@@ -26,8 +26,9 @@
 
 <script>
 import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue";
-import { mapState } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useJobsStore, UNIQUE_ORGANIZATIONS } from "@/stores/jobs";
+import { useUserStore, ADD_SELECTED_ORGANIZATIONS } from "@/stores/user";
 
 export default {
   name: "JobFiltersSidebarOrganizations",
@@ -42,8 +43,9 @@ export default {
   },
   methods: {
     selectOrganization() {
-      console.log(this.selectedOrganizations);
+      this.ADD_SELECTED_ORGANIZATIONS(this.selectedOrganizations);
     },
+    ...mapActions(useUserStore, [ADD_SELECTED_ORGANIZATIONS]),
   },
 };
 </script>
