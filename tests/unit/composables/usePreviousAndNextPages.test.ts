@@ -1,9 +1,10 @@
 import usePreviousAndNextPages from "@/composables/usePreviousAndNextPages";
+import { ref } from "vue";
 
 describe("usePreviousAndNextPages", () => {
   it("calculates page before current one", () => {
-    const currentPage = { value: 8 };
-    const maxPage = { value: 10 };
+    const currentPage = ref(8);
+    const maxPage = ref(10);
 
     const { previousPage } = usePreviousAndNextPages(currentPage, maxPage);
 
@@ -12,8 +13,8 @@ describe("usePreviousAndNextPages", () => {
 
   describe("when current page is the first page", () => {
     it("does not provide previous page", () => {
-      const currentPage = { value: 1 };
-      const maxPage = { value: 10 };
+      const currentPage = ref(1);
+      const maxPage = ref(10);
 
       const { previousPage } = usePreviousAndNextPages(currentPage, maxPage);
 
@@ -22,8 +23,8 @@ describe("usePreviousAndNextPages", () => {
   });
 
   it("calculates page after current one", () => {
-    const currentPage = { value: 8 };
-    const maxPage = { value: 10 };
+    const currentPage = ref(8);
+    const maxPage = ref(10);
 
     const { nextPage } = usePreviousAndNextPages(currentPage, maxPage);
 
@@ -32,8 +33,8 @@ describe("usePreviousAndNextPages", () => {
 
   describe("when current page is the last page", () => {
     it("does not provide next page", () => {
-      const currentPage = { value: 10 };
-      const maxPage = { value: 10 };
+      const currentPage = ref(10);
+      const maxPage = ref(10);
 
       const { nextPage } = usePreviousAndNextPages(currentPage, maxPage);
 
