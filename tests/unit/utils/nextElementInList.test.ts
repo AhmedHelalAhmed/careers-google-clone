@@ -19,7 +19,7 @@ describe("nextElementInList", () => {
 
   describe("when the list is empty", () => {
     it("locates undefined", () => {
-      const list = [];
+      const list = [] as string[];
       const value = "A";
       const result = nextElementInList(list, value);
       expect(result).toBe(undefined);
