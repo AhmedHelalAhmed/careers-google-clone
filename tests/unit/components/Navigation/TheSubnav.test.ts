@@ -3,8 +3,10 @@ import TheSubnav from "@/components/Navigation/TheSubnav.vue";
 import { createTestingPinia } from "@pinia/testing";
 import { useJobsStore } from "@/stores/jobs";
 import { useRoute } from "vue-router";
+import type { Mock } from "vitest";
 
 vi.mock("vue-router");
+const useRouteMock = useRoute as Mock;
 describe("TheSubnav", () => {
   const renderSubNav = () => {
     const pinia = createTestingPinia();
@@ -22,11 +24,12 @@ describe("TheSubnav", () => {
   };
   describe("when user is on jobs page", () => {
     it("displays job count", async () => {
-      useRoute.mockReturnValue({
+      useRouteMock.mockReturnValue({
         name: "jobResults",
       });
       const { jobsStore } = renderSubNav();
       const numberOfJobs = 16;
+      // @ts-expect-error: Getter is read only
       jobsStore.FILTERED_JOBS = Array(numberOfJobs).fill({});
 
       const jobCount = await screen.findByText(numberOfJobs);
@@ -35,11 +38,12 @@ describe("TheSubnav", () => {
   });
   describe("when user is not on jobs page", () => {
     it("does not displays job count", () => {
-      useRoute.mockReturnValue({
+      useRouteMock.mockReturnValue({
         name: "home",
       });
       const { jobsStore } = renderSubNav();
       const numberOfJobs = 16;
+      // @ts-expect-error: Getter is read only
       jobsStore.FILTERED_JOBS = Array(numberOfJobs).fill({});
 
       const jobCount = screen.queryByText(numberOfJobs);

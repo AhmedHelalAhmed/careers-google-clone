@@ -3,8 +3,7 @@ import { createPinia, setActivePinia } from "pinia";
 import axios from "axios";
 import { useUserStore } from "@/stores/user";
 import type { Mock } from "vitest";
-import type { Job } from "@/api/types";
-
+import createJob from "../../utils/createJob";
 vi.mock("axios");
 const axiosGetMock = axios.get as Mock;
 beforeEach(() => {
@@ -33,19 +32,6 @@ describe("actions", () => {
 });
 
 describe("getters", () => {
-  const createJob = (job: Partial<Job> = {}): Job => ({
-    id: 1,
-    title: "Go Supervisor",
-    organization: "Vue and a Half Men",
-    degree: "Bachelor's",
-    jobType: "Intern",
-    locations: ["Barcelona"],
-    minimumQualifications: ["E-enable best-of-breed solutions"],
-    preferredQualifications: ["Cultivate open-source networks"],
-    description: ["Responsibility item senior later attorney."],
-    dateAdded: "2021-02-01",
-    ...job,
-  });
   describe("UNIQUE_ORGANIZATIONS", () => {
     it("finds unique organization from list of jobs", async () => {
       const store = useJobsStore();
