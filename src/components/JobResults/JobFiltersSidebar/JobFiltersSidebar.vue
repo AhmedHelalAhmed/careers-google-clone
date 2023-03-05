@@ -9,7 +9,11 @@
           <action-button text="Clear filters" type="secondary"></action-button>
         </div>
       </div>
-      <collapsible-accordion header="Degree"></collapsible-accordion>
+      <job-filter-sidebar-check-box-group
+        :action="userStore.ADD_SELECTED_DEGREES"
+        :unique-values="UNIQUE_DEGREES"
+        header="Degrees"
+      ></job-filter-sidebar-check-box-group>
       <job-filter-sidebar-check-box-group
         :action="userStore.ADD_SELECTED_JOB_TYPES"
         :unique-values="UNIQUE_JOB_TYPES"
@@ -26,14 +30,16 @@
 
 <script lang="ts" setup>
 import ActionButton from "@/components/Shared/ActionButton.vue";
-import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue";
 import JobFilterSidebarCheckBoxGroup from "@/components/JobResults/JobFiltersSidebar/JobFilterSidebarCheckBoxGroup.vue";
 import { useJobsStore } from "@/stores/jobs";
 import { useUserStore } from "@/stores/user";
 import { computed } from "vue";
+import { useDegreesStore } from "@/stores/degrees";
 
 const jobsStore = useJobsStore();
 const userStore = useUserStore();
+const degreesStore = useDegreesStore();
 const UNIQUE_ORGANIZATIONS = computed(() => jobsStore.UNIQUE_ORGANIZATIONS);
 const UNIQUE_JOB_TYPES = computed(() => jobsStore.UNIQUE_JOB_TYPES);
+const UNIQUE_DEGREES = computed(() => degreesStore.UNIQUE_DEGREES);
 </script>

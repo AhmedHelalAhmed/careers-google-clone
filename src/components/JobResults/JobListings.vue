@@ -38,10 +38,13 @@ import { computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import JobListing from "@/components/JobResults/JobListing.vue";
 import usePreviousAndNextPages from "@/composables/usePreviousAndNextPages";
+import { useDegreesStore } from "@/stores/degrees";
 
 const pageSize = import.meta.env.VITE_PAGE_SIZE;
 const jobsStore = useJobsStore();
 onMounted(jobsStore.FETCH_JOBS);
+const degreesStore = useDegreesStore();
+onMounted(degreesStore.FETCH_DEGREES);
 
 const route = useRoute();
 const currentPage = computed(() =>

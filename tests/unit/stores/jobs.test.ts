@@ -4,6 +4,7 @@ import axios from "axios";
 import { useUserStore } from "@/stores/user";
 import type { Mock } from "vitest";
 import createJob from "../../utils/createJob";
+import createDegree from "../../utils/createDegree";
 
 vi.mock("axios");
 const axiosGetMock = axios.get as Mock;
@@ -99,6 +100,27 @@ describe("getters", () => {
       const store = useJobsStore();
       const job = createJob({ jobType: "Full-time" });
       const result = store.INCLUDE_JOB_BY_JOB_TYPE(job);
+      expect(result).toBe(true);
+    });
+  });
+
+  describe("INCLUDE_JOB_BY_Degree", () => {
+    describe("when the user has not selected any degree", () => {
+      it("includes job", () => {
+        const userStore = useUserStore();
+        userStore.selectedDegrees = [];
+        const store = useJobsStore();
+        const job = createJob();
+        const result = store.INCLUDE_JOB_BY_DEGREE(job);
+        expect(result).toBe(true);
+      });
+    });
+    it("identifies if job is associated with given degrees", () => {
+      const userStore = useUserStore();
+      userStore.selectedDegrees = ["Master's"];
+      const store = useJobsStore();
+      const job = createJob({ degree: "Master's" });
+      const result = store.INCLUDE_JOB_BY_DEGREE(job);
       expect(result).toBe(true);
     });
   });
