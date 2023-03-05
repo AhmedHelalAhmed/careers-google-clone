@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import JobSearchForm from "@/components/JobSearch/JobSearchForm.vue";
 import { useRouter } from "vue-router";
 import type { Mock } from "vitest";
+
 vi.mock("vue-router");
 const useRouterMock = useRouter as Mock;
 describe("JobSearchForm", () => {

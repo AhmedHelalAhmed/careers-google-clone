@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { useRouter } from "vue-router";
 import JobFilterSidebarCheckBoxGroup from "@/components/JobResults/JobFiltersSidebar/JobFilterSidebarCheckBoxGroup.vue";
 import type { Mock } from "vitest";
+
 vi.mock("vue-router");
 
 const useRouterMock = useRouter as Mock;
@@ -13,6 +14,7 @@ describe("JobFilterSidebarCheckBoxGroup", () => {
     uniqueValues: Set<string>;
     action: Mock;
   }
+
   const createProps = (
     props: Partial<JobFiltersSidebarCheckboxGroupProps> = {}
   ): JobFiltersSidebarCheckboxGroupProps => {

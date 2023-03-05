@@ -1,7 +1,7 @@
 <template>
   <section class="mb-16">
     <h1 class="mb-14 text-8xl font-bold tracking-tighter">
-      <span class="block" :class="actionClass">{{ action }}</span>
+      <span :class="actionClass" class="block">{{ action }}</span>
       for everyone
     </h1>
     <h2 class="text-3xl font-light">Find your next job at Bobo Corp.</h2>
@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import nextElementInList from "@/utils/nextElementInList";
-import { computed, ref, onMounted, onBeforeUnmount } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 
 const action = ref("Build");
 const interval = ref<ReturnType<typeof setInterval>>();

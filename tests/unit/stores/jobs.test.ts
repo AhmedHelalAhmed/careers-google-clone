@@ -4,6 +4,7 @@ import axios from "axios";
 import { useUserStore } from "@/stores/user";
 import type { Mock } from "vitest";
 import createJob from "../../utils/createJob";
+
 vi.mock("axios");
 const axiosGetMock = axios.get as Mock;
 beforeEach(() => {

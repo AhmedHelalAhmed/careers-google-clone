@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/vue";
 import SpotLight from "@/components/JobSearch/SpotLight.vue";
 import axios from "axios";
 import type { Mock } from "vitest";
+
 vi.mock("axios");
 const useRouteMock = axios.get as Mock;
 describe("SpotLight", () => {

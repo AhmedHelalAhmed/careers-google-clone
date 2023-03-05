@@ -11,14 +11,14 @@
       </div>
       <collapsible-accordion header="Degree"></collapsible-accordion>
       <job-filter-sidebar-check-box-group
-        header="Job Types"
-        :unique-values="UNIQUE_JOB_TYPES"
         :action="userStore.ADD_SELECTED_JOB_TYPES"
+        :unique-values="UNIQUE_JOB_TYPES"
+        header="Job Types"
       ></job-filter-sidebar-check-box-group>
       <job-filter-sidebar-check-box-group
-        header="Organizations"
-        :unique-values="UNIQUE_ORGANIZATIONS"
         :action="userStore.ADD_SELECTED_ORGANIZATIONS"
+        :unique-values="UNIQUE_ORGANIZATIONS"
+        header="Organizations"
       ></job-filter-sidebar-check-box-group>
     </section>
   </div>

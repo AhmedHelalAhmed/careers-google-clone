@@ -8,8 +8,8 @@
               :id="value"
               v-model="selectedValues"
               :value="value"
-              type="checkbox"
               class="mr-3"
+              type="checkbox"
               @change="selectValue"
             />
             <label :for="value">{{ value }}</label>

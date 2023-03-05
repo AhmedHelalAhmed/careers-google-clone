@@ -9,7 +9,7 @@
     ></font-awesome-icon>
     <div class="flex h-full flex-1 flex-nowrap text-base font-light">
       <div class="relative flex h-full flex-1 items-center pr-3">
-        <label for="role" class="absolute left-0 -top-10">Role</label>
+        <label class="absolute left-0 -top-10" for="role">Role</label>
         <text-input
           id="role"
           v-model="role"
@@ -21,7 +21,7 @@
         >in</span
       >
       <div class="relative flex h-full flex-1 items-center pl-3">
-        <label for="location" class="absolute left-0 -top-10">Where?</label>
+        <label class="absolute left-0 -top-10" for="location">Where?</label>
         <text-input
           id="location"
           v-model="location"
@@ -30,9 +30,9 @@
       </div>
     </div>
     <action-button
+      class="rounded-r-3xl"
       text="Search"
       type="secondary"
-      class="rounded-r-3xl"
     ></action-button>
   </form>
 </template>

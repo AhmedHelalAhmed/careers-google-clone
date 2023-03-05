@@ -2,9 +2,9 @@
   <ul>
     <li v-for="spotlight in spotlights" :key="spotlight.id">
       <slot
+        :description="spotlight.description"
         :img="spotlight.img"
         :title="spotlight.title"
-        :description="spotlight.description"
       ></slot>
     </li>
   </ul>
@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 import axios from "axios";
-import { ref, onMounted } from "vue";
+import { onMounted, ref } from "vue";
 
 interface Spotlight {
   id: number;
@@ -20,6 +20,7 @@ interface Spotlight {
   title: string;
   description: string;
 }
+
 const spotlights = ref<Spotlight[]>([]);
 const getSpotlights = async () => {
   const baseUrl = import.meta.env.VITE_APP_API_URL;

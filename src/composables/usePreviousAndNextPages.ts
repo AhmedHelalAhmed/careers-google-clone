@@ -1,4 +1,4 @@
-import { type Ref, computed } from "vue";
+import { computed, type Ref } from "vue";
 
 const usePreviousAndNextPages = (
   currentPage: Ref<number>,

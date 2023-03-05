@@ -1,9 +1,9 @@
 <template>
   <input
     :value="modelValue"
-    type="text"
-    placeholder="Los Angeles"
     class="w-full text-lg font-normal focus:outline-none"
+    placeholder="Los Angeles"
+    type="text"
     @input="handleInput"
   />
 </template>
