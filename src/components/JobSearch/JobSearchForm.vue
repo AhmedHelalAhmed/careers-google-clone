@@ -37,7 +37,7 @@
   </form>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import TextInput from "@/components/Shared/TextInput.vue";
 import { ref } from "vue";
@@ -56,5 +56,3 @@ const searchForJobs = () => {
   });
 };
 </script>
-
-<style scoped></style>

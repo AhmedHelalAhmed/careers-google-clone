@@ -63,5 +63,3 @@ const props = defineProps({
 
 const jobPageLink = computed(() => `/jobs/results/${props.job.id}`);
 </script>
-
-<style scoped></style>

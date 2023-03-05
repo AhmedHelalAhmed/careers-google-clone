@@ -24,7 +24,7 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue";
 import JobFilterSidebarCheckBoxGroup from "@/components/JobResults/JobFiltersSidebar/JobFilterSidebarCheckBoxGroup.vue";
@@ -37,5 +37,3 @@ const userStore = useUserStore();
 const UNIQUE_ORGANIZATIONS = computed(() => jobsStore.UNIQUE_ORGANIZATIONS);
 const UNIQUE_JOB_TYPES = computed(() => jobsStore.UNIQUE_JOB_TYPES);
 </script>
-
-<style scoped></style>

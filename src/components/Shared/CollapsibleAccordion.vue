@@ -34,5 +34,3 @@ const caretIcon = computed(() =>
   isOpen.value ? ["fas", "angle-up"] : ["fas", "angle-down"]
 );
 </script>
-
-<style scoped></style>

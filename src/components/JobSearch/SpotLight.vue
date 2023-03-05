@@ -29,5 +29,3 @@ const getSpotlights = async () => {
 };
 onMounted(getSpotlights);
 </script>
-
-<style scoped></style>
