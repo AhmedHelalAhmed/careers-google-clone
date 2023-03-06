@@ -4,6 +4,8 @@ import userEvent from "@testing-library/user-event";
 import { useRouter } from "vue-router";
 import JobFilterSidebarCheckBoxGroup from "@/components/JobResults/JobFiltersSidebar/JobFilterSidebarCheckBoxGroup.vue";
 import type { Mock } from "vitest";
+import { useUserStore } from "@/stores/user";
+import { describe } from "vitest";
 
 vi.mock("vue-router");
 
@@ -26,16 +28,15 @@ describe("JobFilterSidebarCheckBoxGroup", () => {
   const renderJobFilterSidebarCheckBoxGroup = (
     props: JobFiltersSidebarCheckboxGroupProps
   ) => {
-    const pinia = createTestingPinia();
+    const pinia = createTestingPinia({ stubActions: false }); // actions will not mocked
+    const userStore = useUserStore();
     render(JobFilterSidebarCheckBoxGroup, {
       props: { ...props },
       global: {
         plugins: [pinia],
-        stubs: {
-          FontAwesomeIcon: true,
-        },
       },
     });
+    return { userStore };
   };
 
   it("renders unique list of values", () => {
@@ -76,6 +77,32 @@ describe("JobFilterSidebarCheckBoxGroup", () => {
       });
       await userEvent.click(fullTimeCheckbox);
       expect(push).toHaveBeenCalledWith({ name: "jobResults" });
+    });
+  });
+
+  describe("when user clears job filters", () => {
+    it("uncheck any checked checkboxes", async () => {
+      useRouterMock.mockReturnValue({ push: vi.fn() });
+      const props = createProps({
+        uniqueValues: new Set(["Full-time"]),
+      });
+      const { userStore } = renderJobFilterSidebarCheckBoxGroup(props);
+      const fullTimeCheckboxBeforeAction = screen.getByRole<HTMLInputElement>(
+        "checkbox",
+        {
+          name: /full-time/i,
+        }
+      );
+      await userEvent.click(fullTimeCheckboxBeforeAction);
+      expect(fullTimeCheckboxBeforeAction.checked).toBe(true);
+      // we must real pinia to run here
+      userStore.CLEAR_USER_JOB_FILTER_SELECTIONS();
+
+      const fullTimeCheckboxAfterAction =
+        await screen.findByRole<HTMLInputElement>("checkbox", {
+          name: /full-time/i,
+        });
+      expect(fullTimeCheckboxAfterAction.checked).toBe(false);
     });
   });
 });
