@@ -1,5 +1,24 @@
-# careers-google-clone
-This is clone for [google careers](https://careers.google.com) with vue.js tailwindcss and typescript
+# Google careers clone
+This is clone for [google careers](https://careers.google.com) with [vue.js](https://vuejs.org) [tailwindcss](https://tailwindcss.com) and [typescript](https://www.typescriptlang.org) 
+
+with high test coverage focus on unit tests and behavior.
+
+
+# Technologies, Tools and packages
+- [Vue.js](https://vuejs.org)
+- [Pinia](https://pinia.vuejs.org)
+- [Tailwindcss](https://tailwindcss.com)
+- [Typescript](https://www.typescriptlang.org)
+- [Vue Test Utils](https://test-utils.vuejs.org)
+- [Testing Library](https://testing-library.com)
+- [vitest](https://vitest.dev)
+- [json-server](https://www.npmjs.com/package/json-server)
+- [vite.js](https://vitejs.dev)
+- [eslint](https://eslint.org)
+- [prettier](https://prettier.io)
+- [fontawesome](https://fontawesome.com)
+- [axios](https://www.npmjs.com/package/axios)
+- [jsdom](https://www.npmjs.com/package/jsdom)
 
 ## Recommended IDE Setup
 
