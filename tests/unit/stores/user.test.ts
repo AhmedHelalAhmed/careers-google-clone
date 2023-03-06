@@ -28,10 +28,10 @@ describe("state", () => {
 });
 
 describe("actions", () => {
-  describe("loginUser", () => {
+  describe("LOGIN_USER", () => {
     it("logs the user in", () => {
       const store = useUserStore();
-      store.loginUser();
+      store.LOGIN_USER();
       expect(store.isLoggedIn).toBe(true);
     });
   });
@@ -55,6 +55,20 @@ describe("actions", () => {
       const store = useUserStore();
       store.ADD_SELECTED_DEGREES(["Master's", "Bachelor's"]);
       expect(store.selectedDegrees).toEqual(["Master's", "Bachelor's"]);
+    });
+  });
+
+  describe("CLEAR_USER_JOB_FILTER_SELECTIONS", () => {
+    it("removes all job filters that user has chosen", () => {
+      const store = useUserStore();
+      store.selectedOrganizations = ["Org1", "Org2"];
+      store.selectedJobTypes = ["Full-time", "Part-time"];
+      store.selectedDegrees = ["Master's", "Bachelor's"];
+      store.CLEAR_USER_JOB_FILTER_SELECTIONS();
+
+      expect(store.selectedOrganizations).toEqual([]);
+      expect(store.selectedJobTypes).toEqual([]);
+      expect(store.selectedDegrees).toEqual([]);
     });
   });
 });

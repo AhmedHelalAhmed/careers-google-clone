@@ -24,6 +24,7 @@
 import CollapsibleAccordion from "@/components/Shared/CollapsibleAccordion.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useUserStore, CLEAR_USER_JOB_FILTER_SELECTIONS } from "@/stores/user";
 
 const props = defineProps({
   header: {
@@ -45,4 +46,15 @@ const selectValue = () => {
   props.action(selectedValues.value);
   router.push({ name: "jobResults" });
 };
+
+const userStore = useUserStore();
+// to solve the side effect of clearing the user job filter selections
+// we have two points of truth!
+userStore.$onAction(({ after, name }) => {
+  after(() => {
+    if (name === CLEAR_USER_JOB_FILTER_SELECTIONS) {
+      selectedValues.value = [];
+    }
+  });
+});
 </script>
