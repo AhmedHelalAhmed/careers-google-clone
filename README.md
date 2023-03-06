@@ -1,6 +1,5 @@
-# job-search
-
-This template should help get you started developing with Vue 3 in Vite.
+# careers-google-clone
+This is clone for [google careers](https://careers.google.com) with vue.js tailwindcss and typescript
 
 ## Recommended IDE Setup
 

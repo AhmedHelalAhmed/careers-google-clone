@@ -4,7 +4,7 @@
       <span :class="actionClass" class="block">{{ action }}</span>
       for everyone
     </h1>
-    <h2 class="text-3xl font-light">Find your next job at Bobo Corp.</h2>
+    <h2 class="text-3xl font-light">Find your next job at Google Corp.</h2>
   </section>
 </template>
 

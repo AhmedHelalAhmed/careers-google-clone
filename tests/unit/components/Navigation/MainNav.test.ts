@@ -25,7 +25,7 @@ describe("MainNav", () => {
   };
   it("displays company name", () => {
     renderMainNav();
-    const companyName = screen.getByText("Bobo Careers");
+    const companyName = screen.getByText("Google Careers");
     expect(companyName).toBeInTheDocument();
   });
   it("displays menu items for navigation", () => {
@@ -37,10 +37,9 @@ describe("MainNav", () => {
     expect(navigationMenuText).toEqual([
       "Teams",
       "Locations",
-      "Life at Bobo Corp",
-      "How we hire",
-      "Students",
+      "Benefits",
       "Jobs",
+      "Students",
     ]);
   });
 

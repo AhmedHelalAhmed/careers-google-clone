@@ -7,7 +7,7 @@
         <router-link
           :to="{ name: 'home' }"
           class="flex h-full items-center text-xl"
-          >Bobo Careers
+          >Google Careers
         </router-link>
         <nav class="ml-12 h-full">
           <ul class="flex h-full list-none">
@@ -48,10 +48,9 @@ import TheSubnav from "@/components/Navigation/TheSubnav.vue";
 const menuItems = ref([
   { text: "Teams", url: "/teams" },
   { text: "Locations", url: "/" },
-  { text: "Life at Bobo Corp", url: "/" },
-  { text: "How we hire", url: "/" },
-  { text: "Students", url: "/" },
+  { text: "Benefits", url: "/" },
   { text: "Jobs", url: "/jobs/results" },
+  { text: "Students", url: "/" },
 ]);
 const userStore = useUserStore();
 const loginUser = userStore.LOGIN_USER;
