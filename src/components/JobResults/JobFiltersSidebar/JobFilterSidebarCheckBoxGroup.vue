@@ -11,7 +11,7 @@
             type="checkbox"
             @change="selectValue"
           />
-          <label :for="value">{{ value }}</label>
+          <label class="cursor-pointer" :for="value">{{ value }}</label>
         </li>
       </ul>
     </fieldset>

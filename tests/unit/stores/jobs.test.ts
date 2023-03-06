@@ -1,10 +1,15 @@
-import { useJobsStore } from "@/stores/jobs";
+import {
+  INCLUDE_JOB_BY_DEGREE,
+  INCLUDE_JOB_BY_SKILL,
+  INCLUDE_JOB_BY_ORGANIZATION,
+  useJobsStore,
+  INCLUDE_JOB_BY_JOB_TYPE,
+} from "@/stores/jobs";
 import { createPinia, setActivePinia } from "pinia";
 import axios from "axios";
 import { useUserStore } from "@/stores/user";
 import type { Mock } from "vitest";
 import createJob from "../../utils/createJob";
-import createDegree from "../../utils/createDegree";
 import { expect } from "vitest";
 
 vi.mock("axios");
@@ -154,5 +159,70 @@ describe("getters", () => {
         expect(result).toBe(true);
       });
     });
+  });
+
+  describe("FILTERED_JOBS", () => {
+    it("apply all filters", () => {
+      const userStore = useUserStore();
+      userStore.skillsSearchTerm = "vue";
+      userStore.selectedDegrees = ["Master's"];
+      userStore.selectedJobTypes = ["Full-time"];
+      userStore.selectedJobTypes = ["Full-time"];
+      userStore.selectedOrganizations = ["Google"];
+
+      const store = useJobsStore();
+      const job = createJob({
+        title: "vue developer",
+        degree: "Master's",
+        jobType: "Full-time",
+        organization: "Google",
+      });
+
+      store.jobs = [
+        job,
+        createJob({
+          title: "vue developer",
+          degree: "Bachelor's",
+          jobType: "Full-time",
+          organization: "Amazon",
+        }),
+        createJob({
+          title: "java developer",
+          degree: "Master's",
+          jobType: "Full-time",
+          organization: "Amazon",
+        }),
+        createJob({
+          title: "vue developer",
+          degree: "Master's",
+          jobType: "Part-time",
+          organization: "Google",
+        }),
+        createJob({
+          title: "vue developer",
+          degree: "Master's",
+          jobType: "Full-time",
+          organization: "Amazon",
+        }),
+      ];
+
+      const result = store.FILTERED_JOBS;
+      expect(result).toEqual([job]);
+    });
+  });
+});
+
+describe("constants", () => {
+  it("has INCLUDE_JOB_BY_DEGREE", () => {
+    expect(INCLUDE_JOB_BY_DEGREE).toBe("INCLUDE_JOB_BY_DEGREE");
+  });
+  it("has INCLUDE_JOB_BY_SKILL", () => {
+    expect(INCLUDE_JOB_BY_SKILL).toBe("INCLUDE_JOB_BY_SKILL");
+  });
+  it("has INCLUDE_JOB_BY_ORGANIZATION", () => {
+    expect(INCLUDE_JOB_BY_ORGANIZATION).toBe("INCLUDE_JOB_BY_ORGANIZATION");
+  });
+  it("has INCLUDE_JOB_BY_JOB_TYPE", () => {
+    expect(INCLUDE_JOB_BY_JOB_TYPE).toBe("INCLUDE_JOB_BY_JOB_TYPE");
   });
 });

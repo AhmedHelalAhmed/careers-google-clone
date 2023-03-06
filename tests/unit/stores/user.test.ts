@@ -1,5 +1,12 @@
-import { useUserStore } from "@/stores/user";
+import {
+  ADD_SELECTED_DEGREES,
+  ADD_SELECTED_JOB_TYPES,
+  ADD_SELECTED_ORGANIZATIONS,
+  useUserStore,
+} from "@/stores/user";
 import { createPinia, setActivePinia } from "pinia";
+import { expect } from "vitest";
+import { INCLUDE_JOB_BY_DEGREE, INCLUDE_JOB_BY_SKILL } from "@/stores/jobs";
 
 beforeEach(() => {
   setActivePinia(createPinia());
@@ -87,5 +94,17 @@ describe("actions", () => {
       expect(store.selectedDegrees).toEqual([]);
       expect(store.skillsSearchTerm).toBe("");
     });
+  });
+});
+
+describe("constants", () => {
+  it("has ADD_SELECTED_JOB_TYPES", () => {
+    expect(ADD_SELECTED_JOB_TYPES).toBe("ADD_SELECTED_JOB_TYPES");
+  });
+  it("has ADD_SELECTED_DEGREES", () => {
+    expect(ADD_SELECTED_DEGREES).toBe("ADD_SELECTED_DEGREES");
+  });
+  it("has ADD_SELECTED_ORGANIZATIONS", () => {
+    expect(ADD_SELECTED_ORGANIZATIONS).toBe("ADD_SELECTED_ORGANIZATIONS");
   });
 });
