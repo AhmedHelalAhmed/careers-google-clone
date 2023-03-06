@@ -5,6 +5,7 @@ import { useUserStore } from "@/stores/user";
 import type { Mock } from "vitest";
 import createJob from "../../utils/createJob";
 import createDegree from "../../utils/createDegree";
+import { expect } from "vitest";
 
 vi.mock("axios");
 const axiosGetMock = axios.get as Mock;
@@ -104,7 +105,7 @@ describe("getters", () => {
     });
   });
 
-  describe("INCLUDE_JOB_BY_Degree", () => {
+  describe("INCLUDE_JOB_BY_DEGREE", () => {
     describe("when the user has not selected any degree", () => {
       it("includes job", () => {
         const userStore = useUserStore();
@@ -122,6 +123,36 @@ describe("getters", () => {
       const job = createJob({ degree: "Master's" });
       const result = store.INCLUDE_JOB_BY_DEGREE(job);
       expect(result).toBe(true);
+    });
+  });
+
+  describe("INCLUDE_JOB_BY_SKILL", () => {
+    it("identifies if job matches user's skill", () => {
+      const userStore = useUserStore();
+      userStore.skillsSearchTerm = "Vue";
+      const store = useJobsStore();
+      const job = createJob({ title: "Vue developer" });
+      const result = store.INCLUDE_JOB_BY_SKILL(job);
+      expect(result).toBe(true);
+    });
+    it("handles inconsistent character casing", () => {
+      const userStore = useUserStore();
+      userStore.skillsSearchTerm = "vuE";
+      const store = useJobsStore();
+      const job = createJob({ title: "vue developer" });
+      const result = store.INCLUDE_JOB_BY_SKILL(job);
+      expect(result).toBe(true);
+    });
+
+    describe("when the user has not entered any skill", () => {
+      it("includes job", () => {
+        const userStore = useUserStore();
+        userStore.skillsSearchTerm = "";
+        const store = useJobsStore();
+        const job = createJob({ title: "vue developer" });
+        const result = store.INCLUDE_JOB_BY_SKILL(job);
+        expect(result).toBe(true);
+      });
     });
   });
 });
